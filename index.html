@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* menu */
+    .menu {
+      height: 100px;
+    }
+    .menu ul {
+      display: flex;
+      padding: 10px;
+      justify-content: end;
+    }
+    .menu ul li {
+      margin-left: 20px;
+      list-style: none;
+      height: 20px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .menu ul li span {
+      display: block;
+    }
+    .menu ul li .two {
+      opacity: 0;
+    }
+    /* Image */
+    .wrapper--img {
+      position: absolute;
+      left: 10%;
+      top: 20%;
+      overflow: hidden;
+      height: 0%;
+    }
+    .two {
+      left: 60%;
+      transform: translateX(-50%);
+      height: 540px;
+      width: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu -->
+  <div class="menu">
+    <ul>
+      <li id='about'>
+        <span class="first">about</span>
+        <span class="second">about</span>
+      </li>
+      <li id="work">
+        <span class="first">work</span>
+        <span class="second">work</span>
+      </li>
+      <li id="contact">
+        <span class="first">contact</span>
+        <span class="second">contact</span>
+      </li>
+    </ul>
+  </div>
+  <!-- Premiere image -->
+  <div class="wrapper--img one" >
+    <img onmouseover="mouseHoverImgOne(this)" onmouseout="mouseOutImgOne(this)" src="https://i.pinimg.com/474x/27/ac/42/27ac42102b14b339be480f58ab641cc3.jpg" alt="">
+  </div>
+  <!-- deuxieme image -->
+  <div class="wrapper--img two" onmouseover="mouseHoverImgTwo(this)" onmouseout="mouseOutImgTwo(this)" >
+    <img  src="https://i.pinimg.com/474x/27/ac/42/27ac42102b14b339be480f58ab641cc3.jpg" alt="">
+  </div>
+  <!-- SCRIPT -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+  <script>
+      gsap.to('.one', 1.5, { height: '540px', ease: Power4.easeInOut }).timeScale(1);
+      gsap.to('.two', 1.5, { width: '429px', ease: Power4.easeInOut }).timeScale(1);
+    
+    // animation premiere image
+    function mouseHoverImgOne (e) {
+      gsap.to(e, 1, { rotate: '5deg', scale: 1.2 });
+    }
+    function mouseOutImgOne (e) {
+      gsap.to(e, 1, { rotate: '0deg', scale: 1 });
+    }
+    // animation deuxieme image
+    function mouseHoverImgTwo (e) {
+      gsap.to(e, 1, { scale: 0.95 });
+      gsap.to(e.querySelector('img'), 1, {  scale: 1.2 });
+    }
+    function mouseOutImgTwo (e) {
+      gsap.to(e, 1, { scale: 1 });
+      gsap.to(e.querySelector('img'), 1, {  scale: 1 });
+    }
+    // amimation du menu
+    document.querySelectorAll('.menu ul li').forEach(element => {
+      element.addEventListener('mouseover', function() {
+        gsap.to(this.querySelector('.first'), 0.3, { y: '-20px', opacity: 0 });
+        gsap.to(this.querySelector('.second'), 0.3, { y: '-20px', opacity: 1 });
+      });
+      element.addEventListener('mouseout', function() {
+        gsap.to(this.querySelector('.first'), 0.3, { y: '0px', opacity: 1 });
+        gsap.to(this.querySelector('.second'), 0.3, { y: '0px', opacity: 0 });
+      });
+    });
+
+  </script>
+</body>
+</html>
